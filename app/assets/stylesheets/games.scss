@@ -1,3 +1,47 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#board {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  float: left;
+  margin-top: 30px;
+}
+
+#sideboard {
+  width: 150px;
+  height: 396px;
+  position: relative;
+  float: left;
+  background-color: #e6e6e6;
+  margin-top: 30px;
+  
+  #whiteplayer, #blackplayer {
+    clear: both;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .time {
+    border: 1px solid #000;
+    background-color: #fff;
+    font-size: 32px;
+    width: 98%;
+    margin: 0 auto;
+  }
+  
+  .name {
+    width: 100%;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+  
+  .buffer {
+    clear: both;
+    height: 272px;
+    margin: 0 0;
+  }
+}
