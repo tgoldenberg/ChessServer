@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904224818) do
+ActiveRecord::Schema.define(version: 20150905043630) do
+
+  create_table "games", force: :cascade do |t|
+    t.integer  "white_id"
+    t.integer  "black_id"
+    t.string   "pgn"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "games", ["black_id"], name: "index_games_on_black_id"
+  add_index "games", ["white_id"], name: "index_games_on_white_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

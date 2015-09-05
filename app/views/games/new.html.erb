@@ -1,14 +1,22 @@
 <div id="user-data" data-id="<%= current_user.id %>"></div>
+<div id="users-path" data-url="<%= games_url %>"></div>
 <%= render 'board' %>
 
 <script>
 var dispatcher = new WebSocketRails('chess-ryandgoldenberg1.c9.io/websocket');
 dispatcher.on_open = function() {
+  var user_id = $('#user-data').data('id');
+  
   $('#play').on('click', function() {
-    var user_id = $('#user-data').data('id');
     var data = {user_id: user_id};
-    $(this).hide();
+    $(this).hide().prop('disabled', true);
     dispatcher.trigger('seek', data);
+  });
+  
+  dispatcher.bind('new_game', function(data) {
+    var color = (data.white_id === user_id ? 'white' : 'black');
+    var data = $.extend({}, data, {color: color});
+    newGame(data, dispatcher);
   });
 };
 </script>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  white_id: 
+  black_id: 
+  pgn: MyString
+
+two:
+  white_id: 
+  black_id: 
+  pgn: MyString
