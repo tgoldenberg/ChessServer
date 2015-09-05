@@ -16,5 +16,9 @@ dispatcher.on_open = function() {
     var data = $.extend({}, data, {color: color});
     newGame(data, dispatcher);
   });
+  
+  dispatcher.bind('live_games', function(data) {
+    console.log('live_games: ', data);
+  });
 };
 </script>

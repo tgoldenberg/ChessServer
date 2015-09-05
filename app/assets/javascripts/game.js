@@ -73,7 +73,15 @@ function newGame(data, dispatcher) {
     gameOver = true;
     clock.stop();
   });
-
+  
+  var channel_name = data.channel_name;
+  var player_info = {
+    white_name: data.white_name,
+    black_name: data.black_name
+  };
+  var data = {channel_name: channel_name, player_info: player_info};
+  
+  dispatcher.trigger('new_game', data);
   board = ChessBoard('board', config);
   clock.start();
 }
