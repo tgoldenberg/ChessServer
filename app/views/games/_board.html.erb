@@ -1,21 +1,23 @@
 <div id="user-data" data-id="<%= current_user.id %>"></div>
 <div id="users-path" data-url="<%= games_url %>"></div>
 
-<div id="controls">
-  <button id="play">New Game</button>
-</div>
-
-<div id="board"></div>
-
-<div id="sideboard">
-  <div id="whiteplayer">
-    <div class="name">White</div>
-    <div class="time">00:00</div>
+<div id="game">
+  <div id="controls">
+    <button id="play">New Game</button>
   </div>
-  <div class="buffer"></div>
-  <div id="blackplayer">
-    <div class="name">Black</div>
-    <div class="time">00:00</div>
+  
+  <div id="board"></div>
+  
+  <div id="sideboard">
+    <div id="whiteplayer">
+      <div class="name">White</div>
+      <div class="time">00:00</div>
+    </div>
+    <div class="buffer"></div>
+    <div id="blackplayer">
+      <div class="name">Black</div>
+      <div class="time">00:00</div>
+    </div>
   </div>
 </div>
 

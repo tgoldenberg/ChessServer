@@ -4,7 +4,6 @@
 
 #controls {
   float: left;
-  margin: 30px 10px;
   width: 150px;
   
   button {
@@ -17,12 +16,16 @@
   }
 }
 
-#board {
-  width: 400px;
-  height: 400px;
-  position: relative;
-  float: left;
-  margin-top: 30px;
+#game {
+  width: 800px;
+  margin : 30px auto;
+  
+  #board {
+    width: 400px;
+    height: 400px;
+    position: relative;
+    float: left;
+  }
 }
 
 #sideboard {
@@ -31,7 +34,6 @@
   position: relative;
   float: left;
   background-color: #e6e6e6;
-  margin-top: 30px;
   
   #whiteplayer, #blackplayer {
     clear: both;
