@@ -2,6 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#controls {
+  float: left;
+  margin: 30px 10px;
+  width: 150px;
+  
+  button {
+    padding: 5px 10px;
+    background-color: #098B51;
+    color: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+}
+
 #board {
   width: 400px;
   height: 400px;

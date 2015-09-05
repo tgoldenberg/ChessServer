@@ -1,1 +1,14 @@
+<div id="user-data" data-id="<%= current_user.id %>"></div>
 <%= render 'board' %>
+
+<script>
+var dispatcher = new WebSocketRails('chess-ryandgoldenberg1.c9.io/websocket');
+dispatcher.on_open = function() {
+  $('#play').on('click', function() {
+    var user_id = $('#user-data').data('id');
+    var data = {user_id: user_id};
+    $(this).hide();
+    dispatcher.trigger('seek', data);
+  });
+};
+</script>
