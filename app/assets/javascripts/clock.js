@@ -1,32 +1,11 @@
 function ChessClock(data, channel) {
   // data: color, time_control, white_name, black_name
+  this.channel = channel;
   this.whiteTimer = new Timer(data.time_control);
   this.blackTimer = new Timer(data.time_control);
   this.whiteDisplay = $('#whiteplayer').find('.time');
   this.blackDisplay = $('#blackplayer').find('.time');
-
-  var clockInterval = null;
-  this.showTime = function() {
-    this.whiteDisplay.text(this.whiteTimer.formattedTime());
-    this.blackDisplay.text(this.blackTimer.formattedTime());
-
-    if (this.whiteTimer.time() === 0 || this.blackTimer.time() === 0)
-      channel.trigger('game_over');
-  };
-  this.start = function() {
-    if (clockInterval === null) {
-      clockInterval = setInterval(this.showTime.bind(this), 100);
-      this.whiteTimer.start();
-    }
-  };
-  this.stop = function() {
-    if (clockInterval !== null) {
-      clearInterval(clockInterval);
-      this.whiteTimer.stop();
-      this.blackTimer.stop();
-    }
-    clockInterval = null;
-  };
+  this.clockInterval = null;
 
   this.setOrientation(data.color);
   this.setPlayerInfo(data);
@@ -68,5 +47,29 @@ ChessClock.prototype = {
   timeData: function() {
     return {white: this.whiteTimer.time(),
             black: this.blackTimer.time()};
+  },
+
+  showTime: function() {
+    this.whiteDisplay.text(this.whiteTimer.formattedTime());
+    this.blackDisplay.text(this.blackTimer.formattedTime());
+
+    if (this.whiteTimer.time() === 0 || this.blackTimer.time() === 0)
+      this.channel.trigger('game_over');
+  },
+
+  start: function() {
+    if (this.clockInterval === null) {
+      this.clockInterval = setInterval(this.showTime.bind(this), 100);
+      this.whiteTimer.start();
+    }
+  },
+
+  stop: function() {
+    if (this.clockInterval !== null) {
+      clearInterval(this.clockInterval);
+      this.whiteTimer.stop();
+      this.blackTimer.stop();
+    }
+    this.clockInterval = null;
   }
 };
