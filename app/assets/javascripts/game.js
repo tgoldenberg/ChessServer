@@ -79,9 +79,9 @@ function newGame(data, dispatcher) {
     white_name: data.white_name,
     black_name: data.black_name
   };
-  var data = {channel_name: channel_name, player_info: player_info};
+  var data = {channel_name: channel_name, player_info: player_info, time_control: 5};
   
-  dispatcher.trigger('new_game', data);
+  dispatcher.trigger('start_game', data);
   board = ChessBoard('board', config);
   clock.start();
 }
