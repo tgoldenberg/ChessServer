@@ -35,7 +35,7 @@ function ChessGame(data, callbacks) {
           return 'snapback';  
         } else {
           this.clock.toggleTimers(this.chess.turn());
-          var moveData = {move: move, time: this.clock.timeData()};
+          var moveData = {move: move, time: this.clock.timeData(), fen: this.chess.fen()};
           callbacks.move(moveData);
           
           if (this.chess.game_over()) {
@@ -58,6 +58,7 @@ function ChessGame(data, callbacks) {
 ChessGame.prototype = {
   updateGameData: function() {
     this.gameData.pgn = this.chess.pgn();
+    this.gameData.result = this.getResult.bind(this)();
   },
   
   updateBoard: function() {
@@ -82,5 +83,15 @@ ChessGame.prototype = {
     this.callbacks.startGame(this.startData);
     this.board = ChessBoard('board', this.config);
     this.clock.start();
+  },
+  
+  getResult: function() {
+    if (this.chess.in_checkmate()) {
+      return (this.chess.turn() === 'w' ? 'b' : 'w');  
+    }  else if (this.chess.in_draw()) {
+      return "d";  
+    } else if (this.clock.flagged()) {
+      return this.clock.winner();  
+    }
   }
 };

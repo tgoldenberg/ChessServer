@@ -71,7 +71,7 @@ ChessClock.prototype = {
     this.whiteDisplay.text(this.whiteTimer.formattedTime());
     this.blackDisplay.text(this.blackTimer.formattedTime());
 
-    if (this.whiteTimer.time() === 0 || this.blackTimer.time() === 0)
+    if (this.flagged())
       this.timesUp();
   },
 
@@ -89,5 +89,17 @@ ChessClock.prototype = {
       this.blackTimer.stop();
     }
     this.clockInterval = null;
+  },
+  
+  flagged: function() {
+    return this.whiteTimer.time() === 0 || this.blackTimer.time() === 0;  
+  },
+  
+  winner: function() {
+    if (this.whiteTimer.time() === 0) {
+      return 'b';  
+    } else if (this.blackTimer.time() === 0) {
+      return 'w';
+    }  
   }
 };

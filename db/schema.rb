@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905043630) do
+ActiveRecord::Schema.define(version: 20150906224538) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "white_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150905043630) do
     t.string   "pgn"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "result"
   end
 
   add_index "games", ["black_id"], name: "index_games_on_black_id"
