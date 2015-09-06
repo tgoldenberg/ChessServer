@@ -6,8 +6,17 @@ class GameLogController < WebsocketRails::BaseController
   def start_game
    unless has_channel?(message[:channel_name])
     live_games << message 
-    broadcast_message :live_games, top_games 
+    broadcast_message :live_games, top_games
    end
+  end
+  
+  def save_game
+    channel_name = message[:channel_name]
+    if has_channel?(channel_name)
+      live_games.delete_if { |game| game[:channel_name] == channel_name }
+      Game.create(message[:game])
+      broadcast_message :live_games, top_games
+    end
   end
   
   private

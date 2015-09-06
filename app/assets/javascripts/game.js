@@ -1,11 +1,3 @@
-function saveGame(data, url) {
-  $.ajax({
-    url: url,
-    method: "POST",
-    data: data
-  });
-}
-
 // NEW GAME
 function newGame(data, dispatcher) {
   // data : channel_name, time_control, color, white_name, black_name, white_id, black_id
@@ -15,7 +7,7 @@ function newGame(data, dispatcher) {
       orientation = data.color,
       chess = new Chess(),
       gameOver = false,
-      gameData = {game: {white_id: data.white_id, black_id: data.black_id}},
+      gameData = {game: {white_id: data.white_id, black_id: data.black_id}, channel_name: data.channel_name},
       board;
 
   var onDrop = function(source, target) {
@@ -34,9 +26,6 @@ function newGame(data, dispatcher) {
 
       if (chess.game_over()) {
         channel.trigger('game_over');
-        gameData.game.pgn = chess.pgn();
-        var url = $('#users-path').data('url');
-        saveGame(gameData, url);
       }
     }
   };
@@ -72,6 +61,8 @@ function newGame(data, dispatcher) {
   channel.bind('game_over', function(data) {
     gameOver = true;
     clock.stop();
+    gameData.game.pgn = chess.pgn();
+    dispatcher.trigger('save_game', gameData);
   });
   
   var channel_name = data.channel_name;

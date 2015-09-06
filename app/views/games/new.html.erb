@@ -19,11 +19,14 @@ dispatcher.on_open = function() {
   });
   
   dispatcher.bind('live_games', function(data) {
-    console.log('updating live_games...');
+    var table = $('#live_games')
+    var headings = $('<tr>');
+    headings.append( $('<th>', {text: 'Time'})  );
+    headings.append( $('<th>', {text: 'White'}) );
+    headings.append( $('<th>', {text: 'Black'}) );
+    table.empty().append(headings);
     
-    var table = $('#live_games');
     data.forEach(function(game) {
-      console.log(game);
       var row = $('<tr>');
       row.append( $('<td>').text(game.time_control.toString() + "-min") );
       row.append( $('<td>').text(game.player_info.white_name) );
