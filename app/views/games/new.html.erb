@@ -2,10 +2,9 @@
 <%= render 'live_games' %>
 
 <script>
+var user_id = $('#user-data').data('id');
 var dispatcher = new WebSocketRails('chess-ryandgoldenberg1.c9.io/websocket');
 dispatcher.on_open = function() {
-  var user_id = $('#user-data').data('id');
-  
   $('#play').on('click', function() {
     var data = {user_id: user_id};
     $(this).prop('disabled', true);
@@ -15,7 +14,35 @@ dispatcher.on_open = function() {
   dispatcher.bind('new_game', function(data) {
     var color = (data.white_id === user_id ? 'white' : 'black');
     var data = $.extend({}, data, {color: color});
-    newGame(data, dispatcher);
+    
+    var channel_name = data.channel_name;
+    var channel = dispatcher.subscribe(channel_name);
+    var callbacks = {
+      move: function(data) {
+        channel.trigger('move', data);
+      },
+      gameOver: function() {
+        channel.trigger('game_over');
+      },
+      saveGame: function(data) {
+        var saveData = {game: data, channel_name: channel_name};
+        dispatcher.trigger('save_game', saveData);
+      },
+      startGame: function(data) {
+        data.channel_name = channel_name;
+        dispatcher.trigger('start_game', data);
+      }
+    };
+    
+    var game = new ChessGame(data, callbacks);
+    channel.bind('move', function(gameData) {
+      game.move(gameData);
+    });
+    channel.bind('game_over', function(gameOverData) {
+      game.game_over(gameOverData);
+      dispatcher.unsubscribe(channel_name);
+    });
+    game.start();
   });
   
   dispatcher.bind('live_games', updateLiveGames);
