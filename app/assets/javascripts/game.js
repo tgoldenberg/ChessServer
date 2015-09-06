@@ -2,7 +2,8 @@
 function newGame(data, dispatcher) {
   // data : channel_name, time_control, color, white_name, black_name, white_id, black_id
   var channel = dispatcher.subscribe(data.channel_name),
-      clock = new ChessClock(data, channel),
+      timesUp = function() { channel.trigger('game_over'); },
+      clock = new ChessClock(data, timesUp),
       color = data.color[0],
       orientation = data.color,
       chess = new Chess(),

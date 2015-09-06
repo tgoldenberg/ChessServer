@@ -8,7 +8,7 @@ dispatcher.on_open = function() {
   
   $('#play').on('click', function() {
     var data = {user_id: user_id};
-    $(this).hide().prop('disabled', true);
+    $(this).prop('disabled', true);
     dispatcher.trigger('seek', data);
   });
   
@@ -18,28 +18,6 @@ dispatcher.on_open = function() {
     newGame(data, dispatcher);
   });
   
-  dispatcher.bind('live_games', function(data) {
-    var table = $('#live_games')
-    var headings = $('<tr>');
-    headings.append( $('<th>', {text: 'Time'})  );
-    headings.append( $('<th>', {text: 'White'}) );
-    headings.append( $('<th>', {text: 'Black'}) );
-    table.empty().append(headings);
-    
-    data.forEach(function(game) {
-      var row = $('<tr>');
-      row.append( $('<td>').text(game.time_control.toString() + "-min") );
-      row.append( $('<td>').text(game.player_info.white_name) );
-      row.append( $('<td>').text(game.player_info.black_name) );
-      row.append( 
-        $('<button>', {
-          class: 'watch',
-          text: 'Watch Game',
-          data: {'channel': game.channel_name}
-        })
-      );
-      table.append(row);
-    });
-  });
+  dispatcher.bind('live_games', updateLiveGames);
 };
 </script>

@@ -1,11 +1,29 @@
-function ChessClock(data, channel) {
+/*
+  data: color, time_control, white_name, black_name
+  timesUp: callback to call if time runs out
+
+  sideboard must be structured like so--
+    <div id="sideboard">
+      <div id="blackplayer">
+        <div class="name"></div>
+        <div class="time"></div>
+      </div>
+      <div class="buffer"></div>
+      <div id="whiteplayer">
+        <div class="name"></div>
+        <div class="time"></div>
+      </div>
+    </div>
+*/
+
+function ChessClock(data, timesUp) {
   // data: color, time_control, white_name, black_name
-  this.channel = channel;
   this.whiteTimer = new Timer(data.time_control);
   this.blackTimer = new Timer(data.time_control);
   this.whiteDisplay = $('#whiteplayer').find('.time');
   this.blackDisplay = $('#blackplayer').find('.time');
   this.clockInterval = null;
+  this.timesUp = timesUp;
 
   this.setOrientation(data.color);
   this.setPlayerInfo(data);
@@ -54,7 +72,7 @@ ChessClock.prototype = {
     this.blackDisplay.text(this.blackTimer.formattedTime());
 
     if (this.whiteTimer.time() === 0 || this.blackTimer.time() === 0)
-      this.channel.trigger('game_over');
+      this.timesUp();
   },
 
   start: function() {
