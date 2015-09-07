@@ -28,6 +28,14 @@ function newGame(dispatcher, user_id, data) {
   channel.bind('game_over', function(data) {
     game.game_over(data);
     dispatcher.unsubscribe(channel_name);
+    $('#resign').off('click').hide();
+  });
+  
+  $('#resign').show().on('click', function() {
+    if (confirm("Are you sure?")) {
+      var result = (color === 'white' ? 'b' : 'w');
+      channel.trigger('game_over', {result: result});
+    }  
   });
   
   game.start();

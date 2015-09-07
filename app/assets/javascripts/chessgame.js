@@ -56,9 +56,11 @@ function ChessGame(data, callbacks) {
 }
 
 ChessGame.prototype = {
-  updateGameData: function() {
+  updateGameData: function(data) {
     this.gameData.pgn = this.chess.pgn();
     this.gameData.result = this.getResult.bind(this)();
+    if (data && data.hasOwnProperty('result'))
+      this.gameData.result = data.result;
   },
   
   updateBoard: function() {
@@ -75,7 +77,7 @@ ChessGame.prototype = {
   game_over: function(data) {
     this.gameOver = true;
     this.clock.stop();
-    this.updateGameData.bind(this)();
+    this.updateGameData.bind(this)(data);
     this.callbacks.saveGame(this.gameData);
   },
   
