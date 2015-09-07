@@ -4,6 +4,7 @@ function updateLiveGames(data) {
   headings.append( $('<th>', {text: 'Time'})  );
   headings.append( $('<th>', {text: 'White'}) );
   headings.append( $('<th>', {text: 'Black'}) );
+  headings.append( $('<th>'                 ) );
   table.empty().append(headings);
   
   data.forEach(function(game) {
@@ -14,7 +15,7 @@ function updateLiveGames(data) {
   row.append( 
     $('<button>', {
       class: 'watch',
-      text: 'Watch Game',
+      text: 'Watch',
       data: {'channel': game.channel_name}
     })
   );

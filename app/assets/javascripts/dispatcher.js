@@ -29,6 +29,7 @@ function newGame(dispatcher, user_id, data) {
     game.game_over(data);
     dispatcher.unsubscribe(channel_name);
     $('#resign').off('click').hide();
+    $('#play').prop('disabled', false);
   });
   
   $('#resign').show().on('click', function() {

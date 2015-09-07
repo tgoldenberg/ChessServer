@@ -8,6 +8,10 @@ var obChannel = null;
 var dispatcher = new WebSocketRails('chess-ryandgoldenberg1.c9.io/websocket');
 dispatcher.on_open = function() {
   $('#play').on('click', function() {
+    if (obChannel !== null) {
+      dispatcher.unsubscribe(obChannel);
+      obChannel = null;
+    }
     var data = {user_id: user_id};
     $(this).prop('disabled', true);
     dispatcher.trigger('seek', data);

@@ -4,7 +4,7 @@
 
 #controls {
   float: left;
-  width: 150px;
+  width: 100px;
   padding: 0 10px;
   
   button {
@@ -13,7 +13,7 @@
     color: #f2f2f2;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 14px;
     width: 100%;
     margin: 10px 0;
   }
@@ -31,6 +31,7 @@
 #game {
   width: 800px;
   margin : 30px auto;
+  float: left;
   
   #board {
     width: 400px;

@@ -1,0 +1,32 @@
+html, body { height: 100%; }
+
+#sidebar {
+  float: right;
+  border-left: 1px solid #000;
+  
+  #live_games {
+    border-collapse: collapse;
+    table-layout: fixed;
+    
+    td {
+      text-align: center;
+      width: 60px;
+    }
+    
+    tr {
+      height: 30px;
+    
+      &:first-child {
+        border-bottom: 1px dotted #585858;   
+      }  
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    tr:nth-child(odd) {
+      background-color: #D8D8D8;
+    }
+  }
+}
